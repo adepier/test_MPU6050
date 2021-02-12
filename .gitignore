@@ -1,4 +1,6 @@
-.build
+build
 .mbed
 projectfiles
 *.py*
+mbed-os
+cmake_build
