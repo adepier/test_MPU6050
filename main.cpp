@@ -1,7 +1,7 @@
 /* mbed Microcontroller Library
  * Copyright (c) 2019 ARM Limited
  * SPDX-License-Identifier: Apache-2.0
- * mbed-tools compile -m NUCLEO_L432KC -t GCC_ARM -f 
+ * mbed-tools compile -m NUCLEO_L432KC -t GCC_ARM -f --sterm
  * 
  */
 
@@ -9,8 +9,7 @@
 
  
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
-// for both classes must be in the include path of your project
-#include "include/ArduinoSerial/ArduinoSerial.h"
+// for both classes must be in the include path of your project 
 #include "include/I2Cdev/I2Cdev.h"
 #include "include/MPU6050_6Axis_MotionApps20.h" 
 #include "include/helper_3dmath.h"
@@ -97,8 +96,7 @@ float ypr[3];           // [yaw, pitch, roll]   yaw/pitch/roll container and gra
 uint8_t teapotPacket[14] = { '$', 0x02, 0,0, 0,0, 0,0, 0,0, 0x00, 0x00, '\r', '\n' };
 
 DigitalOut led1(LED3);
-InterruptIn checkpin(PA_0);
-ArduinoSerial arduinoSerial;
+InterruptIn checkpin(PA_0); 
 
 
 // ================================================================
@@ -125,21 +123,21 @@ void setup()
     // arduinoSerial.begin(115200);
     
     // initialize device
-    arduinoSerial.println(F("Initializing I2C devices..."));
+     printf("Initializing I2C devices...\n");
     mpu.initialize();
 
     // verify connection
-    arduinoSerial.println(F("Testing device connections..."));
-    arduinoSerial.println(mpu.testConnection() ? F("MPU6050 connection successful") : F("MPU6050 connection failed"));
+    printf("Testing device connections...\n");
+    printf(mpu.testConnection() ?  "MPU6050 connection successful\n"  :  "MPU6050 connection failed\n");
 
     // wait for ready
-    // arduinoSerial.println(F("\nSend any character to begin DMP programming and demo: "));
+    // printf("\nSend any character to begin DMP programming and demo: "));
     // while (arduinoSerial.available() && arduinoSerial.read()); // empty buffer
     // while (!arduinoSerial.available());                 // wait for data
     // while (arduinoSerial.available() && arduinoSerial.read()); // empty buffer again
 
     // load and configure the DMP
-    arduinoSerial.println(F("Initializing DMP..."));
+    printf("Initializing DMP...\n");
     devStatus = mpu.dmpInitialize();
 
     // supply your own gyro offsets here, scaled for min sensitivity
@@ -151,16 +149,16 @@ void setup()
     // make sure it worked (returns 0 if so)
     if (devStatus == 0) {
         // turn on the DMP, now that it's ready
-        arduinoSerial.println(F("Enabling DMP..."));
+        printf("Enabling DMP...\n");
         mpu.setDMPEnabled(true);
 
         // enable Arduino interrupt detection
-        arduinoSerial.println(F("Enabling interrupt detection (Arduino external interrupt 0)..."));
+        printf("Enabling interrupt detection (Arduino external interrupt 0)...\n");
         checkpin.rise(&dmpDataReady);
         mpuIntStatus = mpu.getIntStatus();
 
         // set our DMP Ready flag so the main loop() function knows it's okay to use it
-        arduinoSerial.println(F("DMP ready! Waiting for first interrupt..."));
+        printf("DMP ready! Waiting for first interrupt...\n");
         dmpReady = true;
 
         // get expected DMP packet size for later comparison
@@ -170,9 +168,7 @@ void setup()
         // 1 = initial memory load failed
         // 2 = DMP configuration updates failed
         // (if it's going to break, usually the code will be 1)
-        arduinoSerial.print(F("DMP Initialization failed (code "));
-        arduinoSerial.print(devStatus);
-        arduinoSerial.println(F(")"));
+        printf( "DMP Initialization failed (code %i)\n",devStatus); 
     }
 
 }
@@ -215,7 +211,7 @@ void loop()
     if ((mpuIntStatus & 0x10) || fifoCount == 1024) {
         // reset so we can continue cleanly
         mpu.resetFIFO();
-        // arduinoSerial.println(F("FIFO overflow!"));
+        // printf("FIFO overflow!"));
 
         // otherwise, check for DMP data ready interrupt (this should happen frequently)
     } else if (mpuIntStatus & 0x02) {

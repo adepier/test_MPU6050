@@ -287,24 +287,24 @@ uint8_t MPU6050::dmpInitialize() {
     ThisThread::sleep_for(chrono::milliseconds(30));  // wait after reset
 
     // enable sleep mode and wake cycle
-    printf("Enabling sleep mode...\n" );
-     setSleepEnabled(true);
-    printf("Enabling wake cycle...\n" );
-    MPU6050::setWakeCycleEnabled(true); 
+    // printf("Enabling sleep mode...\n" );
+    //  setSleepEnabled(true);
+    // printf("Enabling wake cycle...\n" );
+    // setWakeCycleEnabled(true); 
 
     // disable sleep mode
     printf("Disabling sleep mode...\n");
-    MPU6050::setSleepEnabled(false);
+    setSleepEnabled(false);
 
     // get MPU hardware revision
     printf("Selecting user bank 16...\n");
-    MPU6050::setMemoryBank(0x10, true, true);
+    setMemoryBank(0x10, true, true);
     printf("Selecting memory byte 6...\n");
-    MPU6050::setMemoryStartAddress(0x06);
+    setMemoryStartAddress(0x06);
     printf("Checking hardware revision...\n");
     printf("Revision @ user[16][6] = %X\n",readMemoryByte()); 
     printf("Resetting memory bank selection to 0...\n");
-    MPU6050::setMemoryBank(0, false, false);
+    setMemoryBank(0, false, false);
 
     // check OTP bank valid
     printf("Reading OTP bank valid flag...\n");
@@ -323,13 +323,13 @@ uint8_t MPU6050::dmpInitialize() {
 
     // setup weird slave stuff (?)
     printf("Setting slave 0 address to 0x7F...\n");
-    MPU6050::setSlaveAddress(0, 0x7F);
+    setSlaveAddress(0, 0x7F);
     printf("Disabling I2C Master mode...\n");
-    MPU6050::setI2CMasterModeEnabled(false);
+    setI2CMasterModeEnabled(false);
     printf("Setting slave 0 address to 0x68 (self)...\n");
-    MPU6050::setSlaveAddress(0, 0x68);
+    setSlaveAddress(0, 0x68);
     printf("Resetting I2C Master control...\n");
-    MPU6050::resetI2CMaster();
+    resetI2CMaster();
     ThisThread::sleep_for(chrono::milliseconds(50));
 
     // load DMP code into memory banks

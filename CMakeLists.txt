@@ -29,7 +29,6 @@ target_sources(${APP_TARGET}
     include/MPU6050.cpp
     include/MPU6050_6Axis_MotionApps20.h
     include/I2Cdev/I2Cdev.cpp
-    include/ArduinoSerial/ArduinoSerial.h
     include/helper_3dmath.h
 )
 

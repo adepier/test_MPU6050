@@ -4,4 +4,5 @@ projectfiles
 *.py*
 mbed-os
 cmake_build
-mbed_config.cmake
+.mbedbuild
+.mbedbuild/mbed_config.cmake
