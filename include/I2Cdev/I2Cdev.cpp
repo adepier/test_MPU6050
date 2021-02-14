@@ -41,7 +41,7 @@ int8_t I2Cdev::readBit(uint8_t devAddr, uint8_t regAddr, uint8_t bitNum, uint8_t
  * @return Status of read operation (true = success)
  */
 int8_t I2Cdev::readBitW(uint8_t devAddr, uint8_t regAddr, uint8_t bitNum, uint16_t *data, uint16_t timeout) {
-    uint16_t b;
+    uint16_t b = 0;
     uint8_t count = readWord(devAddr, regAddr, &b, timeout);
     *data = b & (1 << bitNum);
     return count;
