@@ -11,7 +11,8 @@
 // I2Cdev and MPU6050 must be installed as libraries, or else the .cpp/.h files
 // for both classes must be in the include path of your project 
 // #include "MPU6050/I2Cdev/I2Cdev.h"
-#include "MPU6050/MPU6050_6Axis_MotionApps20.h" 
+#include "MPU6050/MPU6050.h" 
+#include "MPU6050/I2Cdev/I2Cdev.h"
 // #include "MPU6050/helper_3dmath.h"
  
 //  #include "MPU6050.h" // not necessary if using MotionApps include file
@@ -64,14 +65,16 @@ digital I/O pin 2.
 #ifndef M_PI
 #define M_PI 3.14159265358979
 #endif
-
+#define I2C_SDA PA_10
+#define I2C_SCL PA_9 
  
-
+I2C i2c(I2C_SDA, I2C_SCL);
+ 
 // class default I2C address is 0x68
 // specific I2C addresses may be passed as a parameter here
 // AD0 low = 0x68 (default for SparkFun breakout and InvenSense evaluation board)
 // AD0 high = 0x69
-MPU6050 mpu;
+MPU6050 mpu(i2c);
 //MPU6050 mpu(0x69); // <-- use for AD0 high
 
 
@@ -139,7 +142,7 @@ void setup()
     // load and configure the DMP
     printf("Initializing DMP...\n");
     devStatus = mpu.dmpInitialize();
-
+    printf("DMP Initialized!\n");
     // supply your own gyro offsets here, scaled for min sensitivity
     mpu.setXGyroOffset(220);
     mpu.setYGyroOffset(76);

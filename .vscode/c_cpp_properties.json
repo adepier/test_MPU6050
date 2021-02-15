@@ -3,7 +3,8 @@
         {
             "name": "Win32",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "C:/Users/adepier/Google Drive/Antoine/projets C++/MBED/Mbed Studio/mbed-os-shared-instance/mbed-os/**"
             ],
             "defines": [
                 "_DEBUG",

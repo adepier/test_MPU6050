@@ -27,8 +27,8 @@ target_sources(${APP_TARGET}
     PRIVATE
     MPU6050/MPU6050.h
     MPU6050/MPU6050.cpp
-    MPU6050/MPU6050_6Axis_MotionApps20.h
-    MPU6050/I2Cdev/I2Cdev.cpp
+    # MPU6050/MPU6050_6Axis_MotionApps20.h
+    # MPU6050/I2Cdev/I2Cdev.cpp
     MPU6050/helper_3dmath.h
 )
 
