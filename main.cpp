@@ -12,8 +12,8 @@
 // for both classes must be in the include path of your project 
 // #include "MPU6050/I2Cdev/I2Cdev.h"
 #include "MPU6050/MPU6050.h" 
-#include "MPU6050/I2Cdev/I2Cdev.h"
-// #include "MPU6050/helper_3dmath.h"
+// #include "MPU6050/I2Cdev/I2Cdev.h"
+#include "MPU6050/helper_3dmath.h"
  
 //  #include "MPU6050.h" // not necessary if using MotionApps include file
  
