@@ -1,5 +1,7 @@
 {
     "files.associations": {
-        "cstdio": "cpp"
+        "cstdio": "cpp",
+        "mutex": "cpp",
+        "mstd_mutex": "cpp"
     }
 }

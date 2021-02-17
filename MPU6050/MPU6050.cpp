@@ -3830,22 +3830,32 @@ bool MPU6050::writeWord(uint8_t devAddr, uint8_t regAddr, uint16_t data) {
 
 bool MPU6050::writeBytes(uint8_t devAddr, uint8_t regAddr, uint8_t length, uint8_t *data)
 {
-      _i2c->frequency(1000000);
-    // printf("set freq");
-    // printf(" writeBytes : ");
-    // ThisThread::sleep_for(chrono::milliseconds(1)); 
-    _i2c->start();
-    _i2c->write(devAddr<<1);
-    // ThisThread::sleep_for(chrono::milliseconds(1)); 
-    _i2c->write(regAddr);
-    for(int i = 0; i < length; i++) {
-        // ThisThread::sleep_for(chrono::milliseconds(1)); 
-        _i2c->write(data[i]);
-        // printf((" 0x%X"),data[i]);
+    const int dim_data = length+1;
+    char cmd[dim_data];
+    cmd[0]=regAddr;
+    for(int i = 0; i < length; i++) { 
+        cmd[i+1]=data[i]; 
     }
-    _i2c->stop();
-    //  ThisThread::sleep_for(chrono::milliseconds(1)); 
-    // printf("\n");
+    _i2c->write(devAddr<<1,cmd,dim_data);
+
+    //   _i2c->frequency(1000000); 
+    // // _i2c->unlock();
+    // // printf("set freq");
+    // // printf(" writeBytes : ");
+    // // ThisThread::sleep_for(chrono::milliseconds(1)); 
+    // _i2c->start();
+    // _i2c->write(devAddr<<1);
+    // // ThisThread::sleep_for(chrono::milliseconds(1)); 
+    // _i2c->write(regAddr);
+    // for(int i = 0; i < length; i++) {
+    //     // ThisThread::sleep_for(chrono::milliseconds(1)); 
+    //     _i2c->write(data[i]);
+    //     // printf((" 0x%X"),data[i]);
+    // }
+    // _i2c->stop();
+    // //  ThisThread::sleep_for(chrono::milliseconds(1)); 
+    // // printf("\n");
+    
     return true;
 }
 

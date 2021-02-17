@@ -141,8 +141,7 @@ void setup()
 
     // load and configure the DMP
     printf("Initializing DMP...\n");
-    devStatus = mpu.dmpInitialize();
-    printf("DMP Initialized!\n");
+    devStatus = mpu.dmpInitialize(); 
     // supply your own gyro offsets here, scaled for min sensitivity
     mpu.setXGyroOffset(220);
     mpu.setYGyroOffset(76);
